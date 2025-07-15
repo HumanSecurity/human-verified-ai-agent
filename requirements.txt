@@ -1,0 +1,8 @@
+python-a2a
+python-dotenv>=1.0.0
+requests>=2.32.4
+cryptography>=44.0.1
+jwcrypto>=1.5.6
+google-generativeai
+http-sfv
+http-message-signatures>=0.7.0

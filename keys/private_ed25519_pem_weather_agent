@@ -1,0 +1,6 @@
+{
+  "kty": "OKP",
+  "crv": "Ed25519",
+  "x": "lTGEbluyUCBM3kZRkUpvQslKQyEjSXwV22EsS8ZY6Rw",
+  "d": "TgcxCfSUmbvPggVljAheUvLmqtudjXPz89PQpWJ44Zc"
+}
