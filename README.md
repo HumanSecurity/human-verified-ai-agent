@@ -4,6 +4,8 @@
 
 This repository is an open-source showcase of a multi-agent AI system that implements HTTP Message Signatures for authenticating agent requests to external services. It demonstrates a **Google A2A (Agent-to-Agent) architecture** with three specialized agents working together to provide comprehensive trip planning services.
 
+For a deeper deepwiki spec of this repo, follow this link ([https://deepwiki.com/PerimeterX/human-verified-ai-agent](https://deepwiki.com/PerimeterX/human-verified-ai-agent))
+
 ## What are HTTP Message Signatures?
 
 HTTP Message Signatures ([RFC 9421](https://www.rfc-editor.org/rfc/rfc9421#section-2.2.1)) provide a cryptographic method for verifying the authenticity and integrity of HTTP requests. Unlike traditional authentication methods that rely on API keys or tokens, HTTP Message Signatures use public-key cryptography to prove that a request came from a specific agent without revealing sensitive credentials.
