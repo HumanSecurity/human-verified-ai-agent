@@ -42,20 +42,21 @@ This showcase demonstrates a **Google A2A (Agent-to-Agent) protocol** implementa
 - **ANS (Agent Name Service)**: Each agent implements secure naming following the [OWASP ANS v1.0 standard](https://genai.owasp.org/resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/) for structured agent identification. The agents use hierarchical names like `forecast.weather.v1.human-security.com` and `planner.trip.v1.human-security.com` to enable secure agent discovery and authentication. This naming system provides a DNS-inspired framework for AI agent identity management that scales across distributed systems.
 
 **Demo Key Management:**
-This showcase is designed to work out-of-the-box using demonstration key-pairs. Each agent has its own private key in the `keys/` directory, with corresponding public keys pre-configured on HUMAN's registry. This approach allows you to immediately experience the multi-agent HTTP Message Signatures protocol in action without needing to set up your own certificate authority or key management infrastructure.
+This showcase is designed to work out-of-the-box using demonstration key pairs. Each agent has its own private key in the `keys/` directory, with corresponding public keys pre-configured on HUMAN's registry. This approach allows you to immediately experience the multi-agent HTTP Message Signatures protocol in action without needing to set up your own certificate authority or key management infrastructure.
 
 **Why this approach is necessary for the demo:**
 - No agent registry or certificate authority currently exists in production for this protocol
 - The verifier service needs to trust and validate signatures using known public keys
 - This demo setup lets you focus on understanding the multi-agent signature protocol rather than key management complexity
 
-In a production environment, each agent would have its own unique key-pair issued through a proper certificate authority, but for learning and demonstration purposes, these demo key-pairs provide the simplest path to understanding the architecture.
+In a production environment, each agent would have its own unique key pair issued through a proper certificate authority, but for learning and demonstration purposes, these demo key pairs provide the simplest path to understanding the architecture.
 
 **⚠️ Important Note:** This is a demonstration project designed for learning and evaluation purposes. While the cryptographic implementations are production-ready, the key management and agent registry components are simplified for educational use.
 
 ### For Commercial AI Agent Companies
 
-If you are a commercial AI agent company and would like your AI agents' messages to be verified cryptographically by HUMAN, please submit a verification request via this form: https://forms.gle/1MLRFqjzDpaooaK79
+If you are a commercial AI agent company and would like your AI agents' messages to be verified cryptographically by HUMAN, please contact us to submit a verification request via this email: [agent.verification@humansecurity.com](mailto:agent.verification@humansecurity.com)
+
 
 ## Quick Start
 
@@ -66,71 +67,93 @@ If you are a commercial AI agent company and would like your AI agents' messages
 
 ### Setup
 
-1.  **Create and activate a virtual environment:**
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    ```
+#### 1. Create and activate a virtual environment
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-2.  **Install dependencies:**
-    ```bash
-    pip3 install -r requirements.txt
-    ```
+#### 2. Install dependencies
+```bash
+pip3 install -r requirements.txt
+```
 
-3.  **Configure environment variables:**
-    Create a `.env` file in the root of the project. You can use the `.env.example` file as a template.
-    ```bash
-    cp .env.example .env
-    ```
-    You will need to populate the `.env` file with the following:
-    *   `GOOGLE_API_KEY`: A valid Google API key for using the underlying language model (needed for LLM Agent orchestrator).
-    *   `AGENT_VERIFIER_ADDRESS`: The network address (URL) of the verifier component. This value is populated for you, using HUMAN's existing service.
-    *   `AGENT_HOSTED_DOMAIN`: The domain from which the verifier will pull the public keys. This is used in the `Signature-Agent` header to indicate where verifiers can find your agents' public keys for signature validation.
+#### 3. Configure environment variables
+Create a `.env` file in the root of the project. You can use the `.env.example` file as a template.
+
+**How to set up environment file:**
+```bash
+cp .env.example .env
+```
+
+You will need to populate the `.env` file with the following:
+*   `GOOGLE_API_KEY`: A valid Google API key to use the underlying language model (needed for LLM Agent orchestrator).
+*   `AGENT_VERIFIER_ADDRESS`: The network address (URL) of the verifier component. This value is populated for you, using HUMAN's existing service.
+*   `AGENT_HOSTED_DOMAIN`: The domain from which the verifier will pull the public keys. This is used in the `Signature-Agent` header to indicate where verifiers can find your agents' public keys for signature validation.
 
 ## Usage Examples
 
 ### 1. Multi-Agent Trip Planner Showcase (Full AI Experience)
 
-The main showcase demonstrates a complete multi-agent system with three specialized agents working together:
+The main showcase demonstrates a complete multi-agent system with three specialized agents working together to create intelligent, weather-aware trip itineraries.
 
+#### System Architecture Flow
+
+![Multi-Agent System Flow](./docs/demo_chart.png)
+*The diagram above illustrates the complete interaction flow between the LLM Agent (orchestrator), Weather Agent, Attractions Agent, and external services through cryptographically signed requests.*
+
+#### How to Run?
 ```bash
 python -m showcases.a2a_showcase
 ```
 
-**What it does:**
-1. Prompts you for a destination city
-2. **LLM Agent** (Orchestrator) coordinates the trip planning process
-3. **Weather Agent** fetches current weather conditions for the city from external APIs using signed requests
-4. **Attractions Agent** retrieves points of interest and attractions from external APIs using signed requests
-5. **LLM Agent** combines both data sources to create a comprehensive, weather-aware itinerary
-6. External service communications are secured using HTTP Message Signatures with individual agent keys
-7. Presents a complete trip plan considering both attractions and weather conditions
+#### What It Does:
+1. **User Input**: Prompts you for a destination city
+2. **Trip Coordination**: LLM Agent (Orchestrator) coordinates the entire trip planning process
+3. **Weather Data Collection**: Weather Agent fetches current weather conditions through signed API requests
+4. **Attractions Discovery**: Attractions Agent retrieves points of interest through signed API requests  
+5. **Intelligent Integration**: LLM Agent combines weather and attractions data using AI
+6. **Secure Communication**: All external service communications use HTTP Message Signatures with individual agent keys
+7. **Final Output**: Presents a comprehensive, weather-aware trip itinerary
 
-**Requirements:** Google API key needed for AI functionality.
+#### Requirements:
+- Google API key needed for AI functionality
 
 ### 2. Simple Verification Success (Minimal Example)
 
-Test the signature verification flow with proper agent identification:
+Test the signature verification flow with proper agent identification to understand how HTTP Message Signatures work.
 
+#### How to Run?
 ```bash
 python -m showcases.simple_success_showcase
 ```
 
-**What it does:** Sends a signed POST request to the verifier's `/verify` endpoint **with** proper agent domain identification, demonstrating successful signature verification.
+#### What It Does:
+- Sends a cryptographically signed POST request to the verifier's `/verify` endpoint
+- Includes proper agent domain identification in the signature
+- Demonstrates successful signature verification process
+- Shows how external services can validate agent authenticity
 
-**Requirements:** No Google API key needed.
+#### Requirements:
+- No Google API key needed
 
 ### 3. Simple Verification Failure (Error Demonstration)
 
-Test what happens when agent identification is missing:
+Test what happens when agent identification is missing to understand the importance of proper agent authentication.
 
+#### How to Run?
 ```bash
 python -m showcases.simple_failure_showcase
 ```
 
-**What it does:** Sends a signed POST request **without** agent domain identification, demonstrating how verification fails when the verifier cannot locate the public key.
+#### What It Does:
+- Sends a signed POST request **without** proper agent domain identification
+- Demonstrates how verification fails when the verifier cannot locate the public key
+- Shows the security implications of missing or incorrect agent identification
+- Illustrates the error handling in the verification process
 
-**Requirements:** No Google API key needed.
+#### Requirements:
+- No Google API key needed
 
 ## Architecture & Technical Details
 
