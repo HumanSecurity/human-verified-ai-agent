@@ -4,7 +4,7 @@
 
 This repository is an open-source showcase of a multi-agent AI system that implements HTTP Message Signatures for authenticating agent requests to external services. It demonstrates a **Google A2A (Agent-to-Agent) architecture** with three specialized agents working together to provide comprehensive trip planning services.
 
-For a deeper deepwiki spec of this repo, follow this link ([https://deepwiki.com/PerimeterX/human-verified-ai-agent](https://deepwiki.com/PerimeterX/human-verified-ai-agent))
+For a deeper deepwiki spec of this repo, follow this link ([https://deepwiki.com/HumanSecurity/human-verified-ai-agent](https://deepwiki.com/HumanSecurity/human-verified-ai-agent))
 
 ## What are HTTP Message Signatures?
 
