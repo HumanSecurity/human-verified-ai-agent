@@ -32,6 +32,6 @@ if __name__ == "__main__":
     try:
         result = simple_failure_request_flow()
         print(f"Request completed. Result: {result}")
-        print("Note: This flow was expected to fail at the server due to incorrect key usage.")
+        print("Note: This flow was expected to fail at the server due to incorrect key usage (misconfiguration of agent hosted domain variable.")
     except Exception as e:
         print(f"Request failed due to an error: {e}") 

@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 sys.path.append('..')
 sys.path.append('../..')
 from request_signer import sign_request, print_signer
-from request_orchestrator import send_request
 from agent_key_manager import get_agent_key_id_ed25519
 
 class RequestGateway:
@@ -33,8 +32,7 @@ class RequestGateway:
         
         self.agent_name = agent_name
         self.ans_name = ans_name  # Store ANS name for X-Agent-Name header
-        self.agent_domain = agent_domain or os.getenv("AGENT_HOSTED_DOMAIN", "localhost")
-        self.signature_agent = f"{agent_name.lower().replace(' ', '-')}.{self.agent_domain}"
+        self.signature_agent = agent_domain or os.getenv("AGENT_HOSTED_DOMAIN", "localhost")
         
         # Map agent names to their key file names
         self.agent_key_mapping = {
