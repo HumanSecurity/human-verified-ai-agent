@@ -57,7 +57,7 @@ In a production environment, each agent would have its own unique key pair issue
 
 ### For Commercial AI Agent Companies
 
-If you are a commercial AI agent company and would like your AI agents' messages to be verified cryptographically by HUMAN, please contact us to submit a verification request via this email: [agent.verification@humansecurity.com](mailto:agent.verification@humansecurity.com)
+If you are a commercial AI agent company and would like your AI agents' messages to be verified cryptographically by HUMAN, please contact us to submit a verification request via this form: [https://www.humansecurity.com/ai-agent-verification/](https://www.humansecurity.com/ai-agent-verification/)
 
 
 ## Quick Start
